@@ -1,5 +1,6 @@
 package com.equalexperts.hotelbooking.stepdefs;
 
+import com.equalexperts.hotelbooking.enums.Constants;
 import com.equalexperts.hotelbooking.pages.BookingForm;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
@@ -23,13 +24,10 @@ public class HomePageStepDef extends BasePageStepDef{
     @Autowired
     private ScenarioContext sc;
 
-    @Value("${base.url}")
-    private String baseUrl;
-
     @Given("^user is on hotel booking home page$")
     public void iAmAtHomePage(){
         log.info("I am at home page");
-        driver.get(baseUrl);
+        bookingForm.open();
     }
 
     @When("^add a booking with below details:$")
@@ -43,7 +41,7 @@ public class HomePageStepDef extends BasePageStepDef{
         final int bookingRowNo = bookingForm.getBookingByFirstnameAndSurname(firstname, surname);
         Assertions.assertThat(bookingRowNo)
                 .as("A booking should be present on '%s %s'", firstname, surname)
-                .isNotEqualTo(-1);
+                .isNotEqualTo(Constants.NO_RECORDS_ROW_NO.getVal());
     }
 
     @When("remove booking with firstname {string} and surname {string}")
@@ -51,7 +49,6 @@ public class HomePageStepDef extends BasePageStepDef{
         bookingForm.removeBookingByFirstnameandSurname(firstname, surname);
         sc.saveData("deleteFirstname", firstname);
         sc.saveData("deleteSurname", surname);
-        pause(10);
     }
 
     @Then("above booking should be successfully removed")
@@ -61,7 +58,7 @@ public class HomePageStepDef extends BasePageStepDef{
         final int bookingRowNo = bookingForm.getBookingByFirstnameAndSurname(deletedBookingFirstname, deletedBookingSurname);
         Assertions.assertThat(bookingRowNo)
                 .as("There should be no booking for %s %s", deletedBookingFirstname, deletedBookingSurname)
-                .isEqualTo(-1);
+                .isEqualTo(Constants.NO_RECORDS_ROW_NO.getVal());
 
     }
 

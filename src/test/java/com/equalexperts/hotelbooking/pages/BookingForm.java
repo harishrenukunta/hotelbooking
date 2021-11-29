@@ -1,5 +1,6 @@
 package com.equalexperts.hotelbooking.pages;
 
+import com.equalexperts.hotelbooking.enums.Constants;
 import io.cucumber.spring.ScenarioScope;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,6 +24,9 @@ public class BookingForm extends BasePage{
 
     @Autowired
     private WebDriver driver;
+
+    @Value("${base.url}")
+    private String baseUrl;
 
     private By firstnameBy = By.cssSelector("#firstname");
     private By surnameBy = By.cssSelector("#lastname");
@@ -62,6 +67,10 @@ public class BookingForm extends BasePage{
 
     public WebElement save(){
         return getElement(saveBy);
+    }
+
+    public void open(){
+        driver.get(baseUrl);
     }
 
     public void addBooking(final Map<String, String> bookingInfo){
@@ -117,12 +126,12 @@ public class BookingForm extends BasePage{
         }catch(TimeoutException ex){
             log.info("No booking found for {} {}", expFirstname, expSurname);
         }
-        return bookingRowNo != null ? bookingRowNo : NO_RECORD_ROW_NO;
+        return bookingRowNo != null ? bookingRowNo : Constants.NO_RECORDS_ROW_NO.getVal();
     }
 
     public void removeBookingByFirstnameandSurname(final String firstname, final String surname){
         final int rowNo = getBookingByFirstnameAndSurname(firstname, surname);
-        if(rowNo == NO_RECORD_ROW_NO){
+        if(rowNo == Constants.NO_RECORDS_ROW_NO.getVal()){
             throw new Error(String.format("Remove booking failed. No booking found for %s %s", firstname, surname));
         }
         final By deleteBookingsBy = By.cssSelector("div#bookings div[id] input[value='Delete']");
