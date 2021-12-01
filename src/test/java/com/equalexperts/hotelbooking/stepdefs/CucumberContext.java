@@ -9,11 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
 
 @CucumberContextConfiguration
-@ContextConfiguration(classes=HotelBookingConfig.class)
-@SpringBootTest
+@SpringBootTest(classes=HotelBookingConfig.class)
 public class CucumberContext {
 
     @Autowired
