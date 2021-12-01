@@ -1,4 +1,4 @@
-package com.equalexperts.hotelbooking.stepdefs;
+package com.equalexperts.hotelbooking.pages;
 
 import io.cucumber.spring.ScenarioScope;
 import org.springframework.stereotype.Component;

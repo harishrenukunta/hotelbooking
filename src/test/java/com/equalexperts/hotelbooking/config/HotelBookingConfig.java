@@ -6,10 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@TestConfiguration
+@Configuration
+@ComponentScan(basePackages={"com.equalexperts.hotelbooking.pages"})
 public class HotelBookingConfig {
 
     @Bean
@@ -27,7 +29,7 @@ public class HotelBookingConfig {
     @ScenarioScope
     @ConditionalOnProperty(name="browser", havingValue = "firefox")
     public WebDriver firefoxDriver(){
-        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.firefoxdriver().arch32().setup();
         final WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
         return driver;

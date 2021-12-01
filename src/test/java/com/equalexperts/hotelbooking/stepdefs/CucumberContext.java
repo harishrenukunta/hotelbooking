@@ -9,11 +9,11 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 
 @CucumberContextConfiguration
+@ContextConfiguration(classes=HotelBookingConfig.class)
 @SpringBootTest
-@Import(HotelBookingConfig.class)
 public class CucumberContext {
 
     @Autowired
@@ -22,6 +22,9 @@ public class CucumberContext {
     @After
     public void afterScenario(final Scenario scenario) {
         final WebDriver dr = ac.getBean(WebDriver.class);
-        dr.quit();
+        if(dr != null){
+            dr.quit();
+        }
+
     }
 }

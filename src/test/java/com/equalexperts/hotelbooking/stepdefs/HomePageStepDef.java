@@ -2,6 +2,7 @@ package com.equalexperts.hotelbooking.stepdefs;
 
 import com.equalexperts.hotelbooking.enums.Constants;
 import com.equalexperts.hotelbooking.pages.BookingForm;
+import com.equalexperts.hotelbooking.pages.ScenarioContext;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,9 +22,9 @@ public class HomePageStepDef extends BasePageStepDef{
     private BookingForm bookingForm;
 
     @Autowired
-    private ScenarioContext sc;
+    ScenarioContext sc;
 
-    @Given("^user is on hotel booking home page$")
+    @Given("user is on hotel booking home page")
     public void iAmAtHomePage(){
         log.info("I am at home page");
         bookingForm.open();

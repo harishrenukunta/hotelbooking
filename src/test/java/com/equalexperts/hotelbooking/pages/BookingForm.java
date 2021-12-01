@@ -39,7 +39,7 @@ public class BookingForm extends BasePage{
     private By surnameDataBy = By.cssSelector("div:nth-child(2)");
     private By bookingsRowsBy = By.cssSelector("div#bookings div[id]");
     private By bookingsTableBy = By.cssSelector("div#bookings");
-    private final int NO_RECORD_ROW_NO  = -1;
+    private By deleteBookingsBy = By.cssSelector("div#bookings div[id] input[value='Delete']");
 
     public WebElement firstname(){
         return getElement(firstnameBy);
@@ -134,7 +134,6 @@ public class BookingForm extends BasePage{
         if(rowNo == Constants.NO_RECORDS_ROW_NO.getVal()){
             throw new Error(String.format("Remove booking failed. No booking found for %s %s", firstname, surname));
         }
-        final By deleteBookingsBy = By.cssSelector("div#bookings div[id] input[value='Delete']");
         getElements(deleteBookingsBy).get(rowNo - 1).click();
     }
 }
